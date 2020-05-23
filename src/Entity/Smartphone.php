@@ -2,42 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SmartphoneRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 
 /**
- * @ApiResource(
- *     collectionOperations={"get", "post"},
- *     itemOperations={
- *          "get"={
- *              "path"="/phone/{id}",
- *              "normalization_context"={"groups"={"phone_listing:read", "phone_details:read"}}
- *          },
- *     },
- *     shortName="phones",
- *     normalizationContext={"groups"={"phone_listing:read"}},
- *     denormalizationContext={"groups"={"phone_listing:write"}},
- *     attributes={
- *          "pagination_items_per_page"=10,
- *          "formats"={"jsonld", "json", "html", "csv"={"text/csv"}},
- *     },
- * )
- * @ApiFilter(SearchFilter::class, properties={
- *     "title": "partial",
- *     "content": "partial",
- *     "provider": "exact",
- *     "provider.companyName": "partial"
- * })
- * @ApiFilter(RangeFilter::class, properties={"price"})
- * @ApiFilter(PropertyFilter::class)
  * @ORM\Entity(repositoryClass=SmartphoneRepository::class)
  */
 class Smartphone
@@ -46,12 +17,13 @@ class Smartphone
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("phone_list")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details", "phone_list"})
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=2,
@@ -63,36 +35,35 @@ class Smartphone
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details", "phone_list"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\NotBlank()
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details", "phone_list"})
      */
     private $rate;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\NotBlank()
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details", "phone_list"})
      */
     private $price;
 
     /**
      * @ORM\ManyToOne(targetEntity=Provider::class, inversedBy="smartphones")
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details", "phone_list"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $provider;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Specification::class)
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @ORM\ManyToOne(targetEntity=Specification::class, inversedBy="smartphones")
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(nullable=false)
-     *
      */
     private $specification;
 
@@ -153,7 +124,6 @@ class Smartphone
     {
         return $this->price;
     }
-
 
     /**
      * @param int|null $price

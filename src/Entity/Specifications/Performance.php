@@ -30,7 +30,7 @@ class Performance
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $processor;
 
@@ -38,7 +38,7 @@ class Performance
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $ram;
 
@@ -46,7 +46,7 @@ class Performance
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $fabriquant;
 
@@ -54,7 +54,7 @@ class Performance
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $gpu;
 
@@ -62,7 +62,7 @@ class Performance
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $frequence;
 
@@ -70,7 +70,7 @@ class Performance
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $CPU;
 

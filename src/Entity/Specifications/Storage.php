@@ -31,7 +31,7 @@ class Storage
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $memory;
 
@@ -39,7 +39,7 @@ class Storage
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $extensible;
 
@@ -47,7 +47,7 @@ class Storage
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $maximum;
 

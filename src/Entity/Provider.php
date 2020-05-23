@@ -22,31 +22,31 @@ class Provider
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details"})
      */
     private $companyName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups({"phone_details:read"})
+     * @Groups({"phone_details"})
      */
     private $email;
 

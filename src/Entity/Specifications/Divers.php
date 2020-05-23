@@ -30,7 +30,7 @@ class Divers
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $family;
 
@@ -38,7 +38,7 @@ class Divers
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $color;
 
@@ -46,7 +46,7 @@ class Divers
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $appearance;
 
@@ -54,7 +54,7 @@ class Divers
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $releaseDate;
 

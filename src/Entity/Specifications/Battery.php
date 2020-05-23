@@ -30,7 +30,7 @@ class Battery
      * @var string
      *
      * @ORM\Column(type="string", length=45)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $capacity;
 
@@ -38,7 +38,7 @@ class Battery
      * @var string
      *
      * @ORM\Column(type="string", length=45)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $power;
 
@@ -46,7 +46,7 @@ class Battery
      * @var string
      *
      * @ORM\Column(type="string", length=45)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $technology;
 
@@ -54,7 +54,7 @@ class Battery
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $withoutCable;
 
@@ -62,7 +62,7 @@ class Battery
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $removable;
 

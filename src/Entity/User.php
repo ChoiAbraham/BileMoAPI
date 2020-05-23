@@ -2,31 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     collectionOperations={"get", "post"},
- *     itemOperations={
- *          "get"={
- *              "path"="/user/{id}",
- *              "normalization_context"={"groups"={"user:read", "user_details:read"}}
- *          },
- *          "delete"
- *     },
- *     normalizationContext={"groups"={"user:read"}},
- *     denormalizationContext={"groups"={"user:write"}},
- * )
- * @ApiFilter(PropertyFilter::class)
- * @UniqueEntity(fields={"email"})
- * @ORM\Entity(repositoryClass=ClientRepository::class)
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User

@@ -29,7 +29,7 @@ class Camera
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $camera;
 
@@ -37,7 +37,7 @@ class Camera
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $flashFront;
 
@@ -46,7 +46,7 @@ class Camera
      *
      * @ORM\Column(type="boolean")
      *
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $flashBack;
 
@@ -55,7 +55,7 @@ class Camera
      *
      * @ORM\Column(type="integer", length=255)
      *
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $sensorNumber;
 
@@ -63,7 +63,7 @@ class Camera
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $sensorFrontPixels;
 

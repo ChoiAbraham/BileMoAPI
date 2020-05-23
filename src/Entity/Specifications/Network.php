@@ -30,7 +30,7 @@ class Network
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $wifi;
 
@@ -38,7 +38,7 @@ class Network
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $bluetooth;
 
@@ -46,7 +46,7 @@ class Network
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $nfc;
 
@@ -54,7 +54,7 @@ class Network
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $usbVersion;
 
@@ -62,7 +62,7 @@ class Network
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $gps;
 
@@ -70,7 +70,7 @@ class Network
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $gyroscope;
 
@@ -78,7 +78,7 @@ class Network
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $fingerprintSensor;
 

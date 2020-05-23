@@ -29,7 +29,7 @@ class Dimension
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $weight;
 
@@ -37,7 +37,7 @@ class Dimension
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $thickness;
 
@@ -45,7 +45,7 @@ class Dimension
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $width;
 
@@ -53,7 +53,7 @@ class Dimension
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $length;
 

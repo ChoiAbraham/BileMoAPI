@@ -133,7 +133,7 @@ class UserFixture extends BaseFixture
             $randomEmail = random_int(0,6);
             $user->setFirstName(self::$firstNames[$randomFirstName]);
             $user->setLastName(self::$lastNames[$i]);
-            $user->setEmail(self::$email[$randomEmail]);
+            $user->setEmail($i . '_' . self::$email[$randomEmail]);
             $user->setAddress(self::$address[0]);
             $user->setCountry(self::$country[0]);
             $user->setTelephone(self::$telephone[0]);

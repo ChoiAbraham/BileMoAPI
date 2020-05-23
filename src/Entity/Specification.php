@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Specifications\Battery;
 use App\Entity\Specifications\Camera;
 use App\Entity\Specifications\Dimension;
@@ -12,6 +11,7 @@ use App\Entity\Specifications\Performance;
 use App\Entity\Specifications\Screen;
 use App\Entity\Specifications\Storage;
 use App\Entity\Specifications\System;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\SpecificationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,86 +31,75 @@ class Specification
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\System", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="system_id", referencedColumnName="id", nullable=true)
      */
     private $system;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Battery", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="battery_id", referencedColumnName="id", nullable=true)
      */
     private $battery;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Camera", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="camera_id", referencedColumnName="id", nullable=true)
      */
     private $camera;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Dimension", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="dimension_id", referencedColumnName="id", nullable=true)
      */
     private $dimension;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Divers", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="divers_id", referencedColumnName="id", nullable=true)
      */
     private $divers;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Network", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="network_id", referencedColumnName="id", nullable=true)
      */
     private $network;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Performance", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="performance_id", referencedColumnName="id", nullable=true)
      */
     private $performance;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Screen", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="screen_id", referencedColumnName="id", nullable=true)
      */
     private $screen;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Smartphone", mappedBy="specification", cascade={"persist"})
-     */
-    private $smartphones;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Specifications\Storage", inversedBy="specification", cascade={"persist", "remove"})
-     * @Groups({"phone_listing:read", "phone_listing:write"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(name="storage_id", referencedColumnName="id", nullable=true)
      */
     private $storage;
 
     /**
-     * Specification constructor
+     * @ORM\OneToMany(targetEntity=Smartphone::class, mappedBy="specification")
      */
+    private $smartphones;
+
     public function __construct()
     {
         $this->smartphones = new ArrayCollection();
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getSmartphones(): ArrayCollection
-    {
-        return $this->smartphones;
     }
 
     /**
@@ -257,6 +246,14 @@ class Specification
         $this->storage = $storage;
     }
 
+    /**
+     * @return Collection|Smartphone[]
+     */
+    public function getSmartphones(): Collection
+    {
+        return $this->smartphones;
+    }
+
     public function addSmartphone(Smartphone $smartphone): self
     {
         if (!$this->smartphones->contains($smartphone)) {
@@ -267,7 +264,7 @@ class Specification
         return $this;
     }
 
-    public function removeSmartpone(Smartphone $smartphone): self
+    public function removeSmartphone(Smartphone $smartphone): self
     {
         if ($this->smartphones->contains($smartphone)) {
             $this->smartphones->removeElement($smartphone);

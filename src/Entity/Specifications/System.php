@@ -30,7 +30,7 @@ class System
      * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $operatingSystem;
 
@@ -38,7 +38,7 @@ class System
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"phone_listing:read"})
+     * @Groups({"phone_details"})
      */
     protected $interface;
 

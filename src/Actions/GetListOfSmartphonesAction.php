@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/smartphones", name="smartphone_show_list", methods={"GET"})
  */
-final class ShowListSmartphonesAction
+final class GetListOfSmartphonesAction
 {
     /** @var SmartphoneRepository */
     private $smartphoneRepository;
