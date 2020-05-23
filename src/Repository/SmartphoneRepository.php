@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Smartphone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @method Smartphone|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +20,33 @@ class SmartphoneRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Smartphone::class);
+    }
+
+    public function findOrderById()
+    {
+        return $qb = $this
+            ->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.id', 'asc')
+        ;
+    }
+
+    public function search($term, $order = 'asc')
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.title', $order)
+        ;
+
+        if ($term) {
+            $qb
+                ->where('a.title LIKE ?1')
+                ->setParameter(1, '%'.$term.'%')
+            ;
+        }
+
+        return $qb;
     }
 
     // /**

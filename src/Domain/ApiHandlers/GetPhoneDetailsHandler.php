@@ -40,8 +40,8 @@ class GetPhoneDetailsHandler
             );
         }
 
-        $phoneNormalized = $this->serialize->normalize($phone, 'json', ['groups' => 'phone_details']);
+        $phone = $this->serialize->normalize($phone, 'json', ['groups' => 'phone_details']);
 
-        return $phoneNormalized;
+        return $phone;
     }
 }
