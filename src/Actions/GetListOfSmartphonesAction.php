@@ -2,41 +2,34 @@
 
 namespace App\Actions;
 
-use App\Entity\Smartphone;
-use App\Repository\SmartphoneRepository;
+use App\Domain\ApiHandlers\GetPhonesListHandler;
 use App\Responders\JsonViewResponder;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-//use FOS\RestBundle\Controller\Annotations\Get;
-//use FOS\RestBundle\Controller\Annotations\View;
-//use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Class ShowListSmartphonesAction.
+ * Class GetListOfSmartphonesAction.
  *
- * @Route("/smartphones", name="smartphone_show_list", methods={"GET"})
+ * @Route("/api/phones", name="phone_list", methods={"GET"})
  */
 final class GetListOfSmartphonesAction
 {
-    /** @var SmartphoneRepository */
-    private $smartphoneRepository;
+    /** @var GetPhonesListHandler */
+    private $phoneListHandler;
 
-//    /** @var SerializerInterface */
-//    private $serializer;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /**
+     * GetListOfSmartphonesAction constructor.
+     * @param GetPhonesListHandler $phoneListHandler
+     */
+    public function __construct(GetPhonesListHandler $phoneListHandler)
+    {
+        $this->phoneListHandler = $phoneListHandler;
+    }
 
     public function __invoke(Request $request, JsonViewResponder $jsonResponder)
     {
-//        $smartphones = $this->smartphoneRepository->findAll();
-//        $dataJson = $this->serializer->serialize($smartphones, 'json');
-//
-//        $response = new Response($dataJson);
-//        $response->headers->set('Content-Type', 'application/json');
-//
-//        return $response;
+        $phone = $this->phoneListHandler->handle($request);
+        return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
 }
