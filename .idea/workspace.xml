@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="460e7287-d697-4eae-96f1-8d80b7c3bc97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/composerJson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Actions/GetListOfUsersAction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/ApiHandlers/UserListHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ApiHandlers/GetPhonesListHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/ApiHandlers/GetPhonesListHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-    </list>
+    <list default="true" id="460e7287-d697-4eae-96f1-8d80b7c3bc97" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -235,7 +227,7 @@
       <option name="presentableId" value="Default" />
       <updated>1589981649215</updated>
       <workItem from="1589981654886" duration="93000" />
-      <workItem from="1590333586234" duration="1654000" />
+      <workItem from="1590333586234" duration="2058000" />
     </task>
     <servers />
   </component>
