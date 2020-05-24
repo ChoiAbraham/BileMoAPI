@@ -19,24 +19,23 @@ class GetUserDetailsAction
     /** @var GetUserDetailsHandler */
     private $handler;
 
-    /** @var TokenStorageInterface */
-    private $token;
+//    /** @var TokenStorageInterface */
+//    private $token;
 
     /**
      * GetUserDetailsAction constructor.
      * @param GetUserDetailsHandler $handler
-     * @param TokenStorageInterface $token
+//     * @param TokenStorageInterface $token
      */
-    public function __construct(GetUserDetailsHandler $handler, TokenStorageInterface $token)
+    public function __construct(GetUserDetailsHandler $handler)
     {
         $this->handler = $handler;
-        $this->token = $token;
+//        $this->token = $token;
     }
 
-    public function __invoke(Request $request, JsonViewResponder $jsonResponder)
+    public function __invoke(Request $request, JsonViewResponder $jsonResponder, UserInterface $client)
     {
-//        $client = $this->token->getToken()->getUser();
-//        $user = $this->handler->handle($request, $client);
-//        return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
+        $user = $this->handler->handle($request, $client);
+        return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
 }
