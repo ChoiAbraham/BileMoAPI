@@ -27,7 +27,7 @@ class SmartphoneRepository extends ServiceEntityRepository
         return $qb = $this
             ->createQueryBuilder('a')
             ->select('a')
-            ->orderBy('a.id', 'asc')
+            ->orderBy('a.createdAt', 'asc')
         ;
     }
 

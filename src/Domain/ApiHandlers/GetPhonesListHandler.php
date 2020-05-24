@@ -50,7 +50,7 @@ class GetPhonesListHandler
             $order= 'asc';
             $qb = $this->manager->getRepository(Smartphone::class)->search($keyword, $order);
         } else {
-            $qb = $this->manager->getRepository(Smartphone::class)->findOrderById();
+            $qb = $this->manager->getRepository(Smartphone::class)->findOrderByDate();
         }
 
         $adapter = new DoctrineORMAdapter($qb);

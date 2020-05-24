@@ -71,6 +71,7 @@ class Smartphone
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"phone_details", "phone_list"})
      */
     private $createdAt;
 
