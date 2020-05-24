@@ -62,24 +62,8 @@ class Client implements UserInterface
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
-    {
-        $this->email = $email;
-    }
-
 
     public function getId(): ?int
     {
@@ -163,7 +147,6 @@ class Client implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
