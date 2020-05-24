@@ -12,10 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User
 {
+    CONST API_ITEMS_LIST = 5;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"users_list"})
      */
     private $id;
 
@@ -35,7 +38,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_details"})
+     * @Groups({"user_details", "users_list"})
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -61,7 +64,6 @@ class User
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"user:read"})
      */
     private $createdAt;
 
