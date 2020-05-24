@@ -21,21 +21,21 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user_details"})
      * @Assert\NotBlank()
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user_details"})
      * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user_details"})
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -43,19 +43,19 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_details:read", "user:write"})
+     * @Groups({"user_details"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_details:read", "user:write"})
+     * @Groups({"user_details"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_details:read", "user:write"})
+     * @Groups({"user_details"})
      */
     private $telephone;
 
@@ -72,10 +72,7 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users")
-<<<<<<< HEAD
-=======
      * @Assert\Valid()
->>>>>>> 573431f4451ce4f275492f5b529a3b5fe5a8f715
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;

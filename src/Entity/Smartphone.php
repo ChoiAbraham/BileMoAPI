@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Smartphone
 {
+    CONST API_MAX_ITEMS_LIST = 4;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,6 +38,7 @@ class Smartphone
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"phone_details", "phone_list"})
+     * @Assert\NotBlank(message="Content needed")
      */
     private $content;
 
@@ -55,7 +58,7 @@ class Smartphone
 
     /**
      * @ORM\ManyToOne(targetEntity=Provider::class, inversedBy="smartphones")
-     * @Groups({"phone_details", "phone_list"})
+     * @Groups({"phone_details"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $provider;
@@ -66,6 +69,21 @@ class Smartphone
      * @ORM\JoinColumn(nullable=false)
      */
     private $specification;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Groups({"phone_details", "phone_list"})
+     */
+    private $createdAt;
+
+    /**
+     * Smartphone constructor.
+     * @param $createdAt
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
+    }
 
     public function getId(): ?int
     {
@@ -160,5 +178,10 @@ class Smartphone
         $this->specification = $specification;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
     }
 }

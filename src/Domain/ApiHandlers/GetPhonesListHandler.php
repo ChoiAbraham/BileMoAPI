@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetPhonesListHandler
@@ -22,17 +23,22 @@ class GetPhonesListHandler
     /** @var EntityManagerInterface */
     private $manager;
 
+    /** @var UrlGeneratorInterface */
+    private $router;
+
     /**
      * GetPhonesListHandler constructor.
      * @param SmartphoneRepository $smartphoneRepository
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $manager
+     * @param UrlGeneratorInterface $router
      */
-    public function __construct(SmartphoneRepository $smartphoneRepository, SerializerInterface $serializer, EntityManagerInterface $manager)
+    public function __construct(SmartphoneRepository $smartphoneRepository, SerializerInterface $serializer, EntityManagerInterface $manager, UrlGeneratorInterface $router)
     {
         $this->smartphoneRepository = $smartphoneRepository;
         $this->serializer = $serializer;
         $this->manager = $manager;
+        $this->router = $router;
     }
 
     public function handle(Request $request)
@@ -44,13 +50,24 @@ class GetPhonesListHandler
             $order= 'asc';
             $qb = $this->manager->getRepository(Smartphone::class)->search($keyword, $order);
         } else {
-            $qb = $this->manager->getRepository(Smartphone::class)->findOrderById();
+            $qb = $this->manager->getRepository(Smartphone::class)->findOrderByDate();
         }
 
         $adapter = new DoctrineORMAdapter($qb);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(4);
+        $pagerfanta->setMaxPerPage(Smartphone::API_MAX_ITEMS_LIST);
         $pagerfanta->setCurrentPage($page);
+
+        if($pagerfanta->hasPreviousPage()) {
+            $previousPage = $request->getSchemeAndHttpHost() . '/api/phones?page=' . $pagerfanta->getPreviousPage();
+        } else {
+            $previousPage = 'no previous page';
+        }
+        if($pagerfanta->hasNextPage()) {
+            $nextPage = $request->getSchemeAndHttpHost() . '/api/phones?page=' . $pagerfanta->getNextPage();
+        } else {
+            $nextPage = 'you reached the last page';
+        }
 
         $smartphones = [];
         foreach ($pagerfanta->getCurrentPageResults() as $result) {
@@ -60,6 +77,8 @@ class GetPhonesListHandler
         $phones = $this->serializer->normalize([
             'total' => $pagerfanta->getNbResults(),
             'count' => count($smartphones),
+            'previous page' => $previousPage,
+            'next page' => $nextPage,
             'smartphones' => $smartphones,
         ], 'json', ['groups' => 'phone_list']);
 

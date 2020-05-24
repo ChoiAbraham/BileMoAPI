@@ -2,6 +2,7 @@
 
 namespace App\Domain\ApiHandlers;
 
+use App\Entity\Smartphone;
 use App\Repository\SmartphoneRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ class GetPhoneDetailsHandler
     /** @var SerializerInterface */
     private $serialize;
 
+
     /**
      * GetPhoneDetailsHandler constructor.
      * @param SmartphoneRepository $smartphoneRepository
@@ -29,6 +31,7 @@ class GetPhoneDetailsHandler
 
     public function handle(Request $request)
     {
+        /** @var Smartphone $phone */
         $phone = $this->smartphoneRepository->find($request->attributes->get('id'));
 
         if ($phone == null) {
