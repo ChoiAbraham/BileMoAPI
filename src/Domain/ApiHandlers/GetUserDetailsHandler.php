@@ -2,14 +2,18 @@
 
 namespace App\Domain\ApiHandlers;
 
+use App\Entity\Client;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class GetUserDetailsHandler
 {
     /** @var UserRepository */
@@ -29,7 +33,7 @@ class GetUserDetailsHandler
         $this->serialize = $serialize;
     }
 
-    public function handle(Request $request, UserInterface $client)
+    public function handle(Request $request, Client $client)
     {
         $user = $this->userRepository->find(['id' => $request->attributes->get('id')]);
 

@@ -7,6 +7,7 @@ use App\Responders\JsonViewResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -17,24 +18,25 @@ class GetUserDetailsAction
 {
     /** @var GetUserDetailsHandler */
     private $handler;
-//
-//    /** @var UserInterface */
-//    private $client;
+
+    /** @var TokenStorageInterface */
+    private $token;
 
     /**
      * GetUserDetailsAction constructor.
      * @param GetUserDetailsHandler $handler
-//     * @param UserInterface $client
+     * @param TokenStorageInterface $token
      */
-    public function __construct(GetUserDetailsHandler $handler)
+    public function __construct(GetUserDetailsHandler $handler, TokenStorageInterface $token)
     {
         $this->handler = $handler;
-//        $this->client = $client;
+        $this->token = $token;
     }
 
     public function __invoke(Request $request, JsonViewResponder $jsonResponder)
     {
-//        $user = $this->handler->handle($request, $this->client);
+//        $client = $this->token->getToken()->getUser();
+//        $user = $this->handler->handle($request, $client);
 //        return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
 }

@@ -38,6 +38,7 @@ class Smartphone
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"phone_details", "phone_list"})
+     * @Assert\NotBlank(message="Content needed")
      */
     private $content;
 
