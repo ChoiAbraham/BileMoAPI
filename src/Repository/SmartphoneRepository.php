@@ -22,7 +22,7 @@ class SmartphoneRepository extends ServiceEntityRepository
         parent::__construct($registry, Smartphone::class);
     }
 
-    public function findOrderById()
+    public function findOrderByDate()
     {
         return $qb = $this
             ->createQueryBuilder('a')
