@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User
 {
+    CONST API_ITEMS_LIST = 5;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -48,9 +48,9 @@ class GetPhonesListHandler
 
         if($keyword) {
             $order= 'asc';
-            $qb = $this->manager->getRepository(Smartphone::class)->search($keyword, $order);
+            $qb = $this->smartphoneRepository->search($keyword, $order);
         } else {
-            $qb = $this->manager->getRepository(Smartphone::class)->findOrderByDate();
+            $qb = $this->smartphoneRepository->findOrderByDate();
         }
 
         $adapter = new DoctrineORMAdapter($qb);
