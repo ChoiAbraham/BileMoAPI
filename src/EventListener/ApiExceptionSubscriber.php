@@ -36,16 +36,19 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
             }
         }
 
-        $data = $apiProblem->toArray();
+        if ($e instanceof HttpExceptionInterface) {
 
-        $response = new JsonResponse(
-            $data,
-            $apiProblem->getStatusCode()
-        );
+            $data = $apiProblem->toArray();
 
-        $response->headers->set('Content-Type', 'application/problem+json');
+            $response = new JsonResponse(
+                $data,
+                $apiProblem->getStatusCode()
+            );
 
-        $event->setResponse($response);
+            $response->headers->set('Content-Type', 'application/problem+json');
+
+            $event->setResponse($response);
+        }
     }
 
     public static function getSubscribedEvents()

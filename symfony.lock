@@ -276,6 +276,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/asset": {
+        "version": "v4.4.8"
+    },
     "symfony/browser-kit": {
         "version": "v4.4.8"
     },
@@ -327,6 +330,9 @@
     },
     "symfony/event-dispatcher-contracts": {
         "version": "v1.1.7"
+    },
+    "symfony/expression-language": {
+        "version": "v4.4.8"
     },
     "symfony/filesystem": {
         "version": "v4.4.8"
