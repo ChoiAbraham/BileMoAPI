@@ -5,7 +5,7 @@ nelmio_api_doc:
     documentation:
         info:
             title: BileMo API Documentation
-            description: OP Project 7
+            description: Openclassrooms Project 7
             version: 1.0.0
 
         securityDefinitions:
@@ -231,7 +231,7 @@ nelmio_api_doc:
                         -   Bearer: []
                     summary: "Allows you to post a new user."
                     tags:
-                        - About Users
+                        - Create User (Authentification JWT)
                     description: "Allows you to post a new user."
                     parameters:
                         - name: "client_id"
@@ -375,7 +375,7 @@ nelmio_api_doc:
                         -   Bearer: []
                     summary: "Delete a user."
                     tags:
-                        - Users (Authentification JWT)
+                        - Delete User (Authentification JWT)
                     description: "Delete a user."
                     parameters:
                         - name: "client_id"
@@ -427,11 +427,98 @@ nelmio_api_doc:
                             examples:
                                 value:
                                   {"message":"No route found for \u0022PUT \/api\/clients\/76\/users\/773\u0022: Method Not Allowed (Allow: DELETE, GET)","code":405}
-
         # Definitions #
         definitions:
             UsersList:
-            UserOut:
+                type: "object"
+                properties:
+                    total:
+                        type: "integer"
+                        description: "total number of users"
+                        example: "16"
+                    count:
+                        type: "integer"
+                        description: "number of users listed in the current page"
+                        example: "5"
+                    previous page:
+                        type: "string"
+                        description: "previous page"
+                        example: "/api/clients/45/users?page=3"
+                    next page:
+                        type: "string"
+                        description: "next page"
+                        example: "/api/clients/45/users?page=4"
+                    users:
+                        type: object
+                        description: "list of users"
+                        example: [
+                            {
+                                "id": 189,
+                                "email": "6_HarbinParent@armyspy.com"
+                            },
+                            {
+                                "id": 226,
+                                "email": "43_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 227,
+                                "email": "44_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 228,
+                                "email": "45_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 235,
+                                "email": "52_JacquenettGousse@dayrep.com"
+                            }
+                        ]
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example:
+                          {
+                              "_self": "http://localhost:8000/api/client/45/users",
+                              "user detail number 189": "http://localhost:8000/api/clients/45/users/189",
+                              "user detail number 226": "http://localhost:8000/api/clients/45/users/226",
+                              "user detail number 227": "http://localhost:8000/api/clients/45/users/227",
+                              "user detail number 228": "http://localhost:8000/api/clients/45/users/228",
+                              "user detail number 235": "http://localhost:8000/api/clients/45/users/235"
+                          }
+            UserDetail:
+                type: "object"
+                properties:
+                    lastName:
+                        type: "string"
+                        description: "lastName"
+                        example: "Jezabel"
+                    firstName:
+                        type: "string"
+                        description: "firstName"
+                        example: "France"
+                    email:
+                        type: "string"
+                        description: "email of user"
+                        example: "8_HarbinFrance@armspy.com"
+                    address:
+                        type: "string"
+                        description: "address of user"
+                        example: "82 rue machin"
+                    country:
+                        type: "string"
+                        description: "country of the user"
+                        example: "France"
+                    telephone:
+                        type: "string"
+                        description: "telephone of the user"
+                        example: "+92 28283 939"
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example: {
+                          "_self": "http://localhost:8000/api/clients/45users/189",
+                          "all": "http://localhost:8000/api/clients/45users"
+                        }
             PhoneList:
                 type: "object"
                 properties:

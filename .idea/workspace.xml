@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="460e7287-d697-4eae-96f1-8d80b7c3bc97" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/Specifications/ScreenFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/Specifications/ScreenFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ApiHandlers/UserListHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/ApiHandlers/UserListHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Specifications/Screen.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Specifications/Screen.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/nelmio_api_doc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/nelmio_api_doc.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +235,7 @@
       <updated>1589981649215</updated>
       <workItem from="1589981654886" duration="93000" />
       <workItem from="1590333586234" duration="17438000" />
-      <workItem from="1590625084038" duration="27387000" />
+      <workItem from="1590625084038" duration="29427000" />
     </task>
     <servers />
   </component>
