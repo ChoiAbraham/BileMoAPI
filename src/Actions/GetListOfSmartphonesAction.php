@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class GetListOfSmartphonesAction.
  *
- * @Route("/api/phones", name="phone_list", methods={"GET"})
+ * @Route("/api/phones", name="phone_list", methods={"GET"}, condition="request.headers.get('Accept') matches '#version=1#i'")
  */
 final class GetListOfSmartphonesAction
 {
@@ -41,6 +41,6 @@ final class GetListOfSmartphonesAction
             $phone["_links"]["phone number " . $phoneNumber] = $request->getSchemeAndHttpHost() . "/api/phones/" . $phoneNumber;
         }
 
-        return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
+        return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json;version=1'], true);
     }
 }

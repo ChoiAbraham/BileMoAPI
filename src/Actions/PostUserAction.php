@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class PostUserAction
- * @Route(path="api/clients/{client_id<\d+>}/users", name="post_user_endpoint", methods={"POST"})
+ * @Route(path="api/clients/{client_id<\d+>}/users", name="post_user_endpoint", methods={"POST"}, condition="request.headers.get('Accept') matches '#version=1#i'")
  */
 class PostUserAction
 {
@@ -39,6 +39,6 @@ class PostUserAction
     public function __invoke(Request $request, JsonViewResponder $jsonViewResponder, UserInterface $client)
     {
         $inputData = $this->postUserHandler->handle($request, $client);
-        return $jsonViewResponder($inputData, Response::HTTP_CREATED, ['Content-Type' => 'application/json']);
+        return $jsonViewResponder($inputData, Response::HTTP_CREATED, ['Content-Type' => 'application/json;version=1']);
     }
 }

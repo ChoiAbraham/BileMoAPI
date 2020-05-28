@@ -37,6 +37,7 @@ security:
             pattern:   ^/api/doc
             anonymous: true
             stateless: true
+            security: false
 
         main:
             anonymous: lazy

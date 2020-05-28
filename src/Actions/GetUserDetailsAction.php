@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class GetUserDetailsAction
- * @Route(path="/api/clients/{client_id<\d+>}/users/{id<\d+>}", name="get_user_details", methods={"GET"})
+ * @Route(path="/api/clients/{client_id<\d+>}/users/{id<\d+>}", name="get_user_details", methods={"GET"}, condition="request.headers.get('Accept') matches '#version=1#i'")
  */
 class GetUserDetailsAction
 {
@@ -34,6 +34,6 @@ class GetUserDetailsAction
             "_self" => $request->getSchemeAndHttpHost() ."/api/clients/" . $client->getId() . "users/" . $request->attributes->get('id'),
             "all" => $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "users",
         ];
-        return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
+        return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json;version=1'], true);
     }
 }
