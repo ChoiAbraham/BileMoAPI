@@ -71,7 +71,7 @@ class Screen
      */
     public function getDefinition(): string
     {
-        return $this->defintion;
+        return $this->definition;
     }
 
     /**
@@ -99,11 +99,11 @@ class Screen
     }
 
     /**
-     * @param string $defintion
+     * @param string $definition
      */
-    public function setDefinition(string $defintion): void
+    public function setDefinition(string $definition): void
     {
-        $this->defintion = $defintion;
+        $this->definition = $definition;
     }
 
     /**

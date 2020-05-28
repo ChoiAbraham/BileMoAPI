@@ -52,7 +52,9 @@ class UserListHandler
         }
 
         $page = $request->query->get('page', 1);
-        $qb = $this->userRepository->findOrderByDate();
+
+        $clientId = $request->attributes->get('client_id');
+        $qb = $this->userRepository->findOrderByDate($clientId);
 
         $adapter = new DoctrineORMAdapter($qb);
         $pagerfanta = new Pagerfanta($adapter);
