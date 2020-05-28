@@ -22,3 +22,7 @@ services:
     App\Actions\:
         resource: '../src/Actions'
         tags: ['controller.service_arguments']
+
+    App\EventListener\ApiExceptionSubscriber:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

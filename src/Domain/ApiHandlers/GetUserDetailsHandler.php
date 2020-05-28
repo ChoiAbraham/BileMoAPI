@@ -2,7 +2,6 @@
 
 namespace App\Domain\ApiHandlers;
 
-use App\Entity\Client;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;

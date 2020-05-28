@@ -68,11 +68,6 @@ class User
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users")
      * @Assert\Valid()
      * @ORM\JoinColumn(nullable=false)
@@ -169,24 +164,12 @@ class User
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
     public function getClient(): ?Client
     {
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
+    public function setClient($client): self
     {
         $this->client = $client;
 

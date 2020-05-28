@@ -19,18 +19,13 @@ class GetUserDetailsAction
     /** @var GetUserDetailsHandler */
     private $handler;
 
-//    /** @var TokenStorageInterface */
-//    private $token;
-
     /**
      * GetUserDetailsAction constructor.
      * @param GetUserDetailsHandler $handler
-//     * @param TokenStorageInterface $token
      */
     public function __construct(GetUserDetailsHandler $handler)
     {
         $this->handler = $handler;
-//        $this->token = $token;
     }
 
     public function __invoke(Request $request, JsonViewResponder $jsonResponder, UserInterface $client)
