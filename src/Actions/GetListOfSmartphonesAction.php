@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Domain\ApiHandlers\GetPhonesListHandler;
+use App\Entity\Smartphone;
 use App\Responders\JsonViewResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +31,16 @@ final class GetListOfSmartphonesAction
     public function __invoke(Request $request, JsonViewResponder $jsonResponder)
     {
         $phone = $this->phoneListHandler->handle($request);
+
+        $phone["_links"] = [
+            "_self" => $request->getSchemeAndHttpHost() . "/api/phones",
+        ];
+
+        for($i = 0; $i < Smartphone::API_MAX_ITEMS_LIST; $i++) {
+            $phoneNumber = $phone["smartphones"][$i]['id'];
+            $phone["_links"]["phone number " . $phoneNumber] = $request->getSchemeAndHttpHost() . "/api/phones/" . $phoneNumber;
+        }
+
         return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
 }

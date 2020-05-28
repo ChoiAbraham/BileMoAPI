@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Domain\ApiHandlers\UserListHandler;
+use App\Entity\User;
 use App\Responders\JsonViewResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,20 @@ final class GetListOfUsersAction
     public function __invoke(JsonViewResponder $jsonViewResponder, Request $request, UserInterface $client)
     {
         $user = $this->userListHandler->handle($request, $client);
+        $user["_links"] = [
+            "_self" => $request->getSchemeAndHttpHost() ."/api/" . $client->getId() . "/users",
+            "one user" => $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "/USER_ID",
+        ];
+
+        $user["_links"] = [
+            "_self" => $request->getSchemeAndHttpHost() . "/api/client/" . $client->getId() . "/users",
+        ];
+
+        for($i = 0; $i < User::API_ITEMS_LIST; $i++) {
+            $userNumber = $user["users"][$i]['id'];
+            $user["_links"]["user detail number " . $userNumber] = $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "/users/" . $userNumber;
+        }
+
         return $jsonViewResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
-
 }

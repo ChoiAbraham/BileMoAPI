@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -44,6 +45,12 @@ class UserListHandler
 
     public function handle(Request $request, UserInterface $client)
     {
+        if ($client == null) {
+            throw new AccessDeniedHttpException('You can\'t add an user');
+        } elseif ($client->getId() != $request->attributes->get('client_id')) {
+            throw new AccessDeniedHttpException('wrong id');
+        }
+
         $page = $request->query->get('page', 1);
         $qb = $this->userRepository->findOrderByDate();
 

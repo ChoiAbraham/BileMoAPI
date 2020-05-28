@@ -35,6 +35,12 @@ class GetUserDetailsHandler
 
     public function handle(Request $request, UserInterface $client)
     {
+        if ($client == null) {
+            throw new AccessDeniedHttpException('You can\'t add an user');
+        } elseif ($client->getId() != $request->attributes->get('client_id')) {
+            throw new AccessDeniedHttpException('wrong id');
+        }
+
         $user = $this->userRepository->find(['id' => $request->attributes->get('id')]);
 
         //Exception NO USER

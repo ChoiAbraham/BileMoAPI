@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class GetSmartphoneDetailsAction.
  * @Route(name="get_phone", path="/api/phones/{id<\d+>}", methods={"GET"})
+ *
  */
 final class GetSmartphoneDetailsAction
 {
@@ -29,6 +30,10 @@ final class GetSmartphoneDetailsAction
     public function __invoke(Request $request, JsonViewResponder $jsonResponder)
     {
         $phone = $this->handler->handle($request);
+        $phone["_links"] = [
+            "_self" => $request->getSchemeAndHttpHost() ."/api/phones/" . $request->attributes->get('id'),
+            "all" => $request->getSchemeAndHttpHost() . "/api/phones",
+        ];
         return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json'], true);
     }
 }
