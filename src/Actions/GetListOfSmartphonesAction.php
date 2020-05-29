@@ -12,7 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class GetListOfSmartphonesAction.
  *
- * @Route("/api/phones", name="phone_list", methods={"GET"}, condition="request.headers.get('Accept') matches '#version=1#i'")
+ * @Route(
+ *     "/api/phones",
+ *     name="phone_list",
+ *     methods={"GET"},
+ *     condition="request.headers.get('Accept') matches '#(version=1)?#'")
  */
 final class GetListOfSmartphonesAction
 {

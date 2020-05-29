@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class PostUserAction
- * @Route(path="api/clients/{client_id<\d+>}/users", name="post_user_endpoint", methods={"POST"}, condition="request.headers.get('Accept') matches '#version=1#i'")
+ * @Route(path="api/clients/{client_id<\d+>}/users", name="post_user_endpoint", methods={"POST"}, condition="request.headers.get('Accept') matches '#(version=1)?#i'")
  */
 class PostUserAction
 {

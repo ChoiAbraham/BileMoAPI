@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="460e7287-d697-4eae-96f1-8d80b7c3bc97" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/BileMoAPI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BileMoAPI.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/routing.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/routing.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/nelmio_api_doc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/nelmio_api_doc.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes/nelmio_api_doc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes/nelmio_api_doc.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Actions/DeleteUserAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/DeleteUserAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Actions/GetListOfSmartphonesAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/GetListOfSmartphonesAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Actions/GetListOfUsersAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/GetListOfUsersAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Actions/GetSmartphoneDetailsAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/GetSmartphoneDetailsAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Actions/GetUserDetailsAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/GetUserDetailsAction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Actions/PostUserAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Actions/PostUserAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,6 +193,7 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
     </include_path>
   </component>
   <component name="ProjectId" id="1cAqGBlw9Bptq39QFIT1zqtm4gV" />
@@ -246,7 +245,7 @@
       <updated>1589981649215</updated>
       <workItem from="1589981654886" duration="93000" />
       <workItem from="1590333586234" duration="17438000" />
-      <workItem from="1590625084038" duration="17586000" />
+      <workItem from="1590625084038" duration="39462000" />
     </task>
     <servers />
   </component>
@@ -274,13 +273,17 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="604" y="337" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1590336716414" />
+    <state x="463" y="144" width="738" height="606" key="find.popup" timestamp="1590671019637">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="463" y="144" width="738" height="606" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1590671019637" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1590633866444">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1590633866444" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1590641133530">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1590681183140">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1590641133530" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1590681183140" />
   </component>
 </project>

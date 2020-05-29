@@ -148,7 +148,7 @@ class Smartphone
      * @param int|null $price
      * @return $this
      *
-     * @SerializedName("description")
+     * @SerializedName("price")
      */
     public function setPrice(?int $price): self
     {

@@ -40,7 +40,7 @@ class ScreenFixture extends BaseFixture
     {
         $this->createMany(Screen::class, 5, function (Screen $screen, $i) {
             $screen->setSize(self::$screen[$i]['size']);
-            $screen->setDefintion(self::$screen[$i]['definition']);
+            $screen->setDefinition(self::$screen[$i]['definition']);
             $screen->setDpi(self::$screen[$i]['dpi']);
         });
 

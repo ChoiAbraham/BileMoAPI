@@ -11,7 +11,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class DeleteUserAction
- * @Route(path="/api/clients/{client_id<\d+>}/users/{id<\d+>}", name="delete_user", methods={"DELETE"})
+ * @Route(
+ *     path="/api/clients/{client_id<\d+>}/users/{id<\d+>}",
+ *     name="delete_user",
+ *     methods={"DELETE"},
+ *     condition="request.headers.get('Accept') matches '#(version=1)?#'"
+ *     )
  */
 final class DeleteUserAction
 {

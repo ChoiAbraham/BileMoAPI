@@ -40,7 +40,7 @@ class Screen
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"phone_details"})
      */
-    protected $defintion;
+    protected $definition;
 
     /**
      * @var string
@@ -69,9 +69,9 @@ class Screen
     /**
      * @return string
      */
-    public function getDefintion(): string
+    public function getDefinition(): string
     {
-        return $this->defintion;
+        return $this->definition;
     }
 
     /**
@@ -99,11 +99,11 @@ class Screen
     }
 
     /**
-     * @param string $defintion
+     * @param string $definition
      */
-    public function setDefintion(string $defintion): void
+    public function setDefinition(string $definition): void
     {
-        $this->defintion = $defintion;
+        $this->definition = $definition;
     }
 
     /**

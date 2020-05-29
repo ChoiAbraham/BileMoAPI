@@ -1,9 +1,848 @@
 nelmio_api_doc:
-    documentation:
-        info:
-            title: My App
-            description: This is an awesome app!
-            version: 1.0.0
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+    documentation:
+        info:
+            title: BileMo API Documentation
+            description: Openclassrooms Project 7
+            version: 1.0.0
+
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value: Bearer {jwt}'
+                name: Authorization
+                in: header
+
+        paths:
+            # General #
+            /api/doc.json:
+                get:
+                    summary: Documentation on json format
+                    description: "Json Documentation"
+                    tags:
+                        - Application API
+                    responses:
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json;version=1:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022PATCH \/api\/doc.json\u0022: Method Not Allowed (Allow: GET)","code":405}
+                        200:
+                            description: 'Success'
+                            content:
+                                application/json;version=1:
+
+            /api/login_check:
+                post:
+                    summary: returns your valid token
+                    tags:
+                        - API JWT Login
+                    description: "POST your credentials for a valid token"
+                    parameters:
+                        - in: "body"
+                          name: "body"
+                          schema:
+                              properties:
+                                  username:
+                                      type: "string"
+                                      description: "Username"
+                                      example: "Decathlon"
+                                  password:
+                                      type: "string"
+                                      description: "Password"
+                                      example: "123456789"
+                    responses:
+                        200:
+                            description: 'Success'
+                            content:
+                                application/json;version=1:
+                            examples:
+                                value:
+                                  {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE1OTA2MzYwNjIsImV4cCI6MTU5MDYzOTY2Miwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiRk5BQyJ9.HWqEhWEp_1Nnu1pM7CjZ40-9xovqzYfV54YdEqVLX_BHiDf432BmigYM24526FnmpSHXj_Z8dY21WN2qHGw2Q9uCyR1898WKp_mA-HSrfZxtl1_Blpc-taIKdN94ZDc-efx8JqnQUuXI9QbuyRVTXhfBN1atd_JeyJTfJEVsLUrHn5WNWDs_QjIvQOG3xuu2Vi_f3DoD3m2YnMQxKX027J2VOQia-_enUMkBVfXhGVxV_05b6stdrMcsqjtPJ_csTBa_EGBJ9VLHECOd-_4AciL6cbPVdzWCWW0fNQzY24CSeMi0qimiMwCzsw2OGbZBc423u82KtquDK-0p81Rx_DjcesopnkG4HUIbW0hX58Oj9zrxRonfCA0n5p1klTw9VGXXfC8HleRImux2zH9xztW0EXTgZklCP2OJ0ZhXj-Rrk1Q2azmsYLA2j7l8UuxcT2S03kCJ51C_9VygRLaCgnwzt1kk-_EGEQxP1132EgW86MRJv6lV63ES5eL5_CNlBebX0QNNubmaOSaiYPlsZnLqqW8IqkGhqsvTPp8WG_6E8Q7Oz5OFJUy7gaknycox6Oq2S28RWjTiMjx0rkWxTV_kPBymGaLl7U54s-7YKwVO4spM5A3yz7WaVOwHvkEEMJZng7UBwHaAdgldW8CWo4wbzms250LJcIlLY6xmPvw"}
+                        400:
+                            description: 'Bad Request'
+                            content:
+                                application/json:
+                            examples:
+                                username missing:
+                                  {"Error":"The key \u0022username\u0022 must be provided."}
+                                password missing:
+                                  {"Error":"The key \u0022password\u0022 must be provided."}
+                                other:
+                                  {"Error":"Invalid JSON."}
+                        401:
+                            description: 'Unauthorized'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"code":401,"message":"Invalid credentials."}
+                        404:
+                            description: 'Not found'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No content, request seems empty or header Content-Type missing","code":404}
+
+            # Phones #
+            /api/phones:
+                get:
+                    summary: Return all phones
+                    tags:
+                        - Smartphones (Public)
+                    description: Auto generated using Swagger Inspector
+                    consumes:
+                        - application/x-www-form-urlencoded
+                    responses:
+                        200:
+                            description: 'Success: Return list of all phones with pagination'
+                            content:
+                                application/json;version=1:
+                            schema:
+                                $ref: "#/definitions/PhoneList"
+                        400:
+                            description: 'Bad Request'
+                            content:
+                                application/json:
+                            examples:
+                                paginate:
+                                  {"message":"The requested page does not exist, last page is api\/phones?page=XX","code":400}
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json;version=1:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022POST \/api\/phones\u0022: Method Not Allowed (Allow: GET)","code":405}
+            /api/phones/{id}:
+                get:
+                    tags:
+                        - Smartphones (Public)
+                    summary: "Find phone by ID"
+                    description: "Returns a single phone"
+                    operationId: "getPhoneById"
+                    produces:
+                        - "application/json;version=1"
+                    parameters:
+                        - name: "id"
+                          in: "path"
+                          description: "ID of phone"
+                          required: true
+                          type: "integer"
+                    responses:
+                        200:
+                            description: "Successful"
+                            content:
+                                application/json:
+                            schema:
+                                $ref: "#/definitions/PhoneDetails"
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                        404:
+                            description: "Phone not found"
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"Phone was not found, check your request","code":404}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022PUT \/api\/phones\/133\u0022: Method Not Allowed (Allow: GET)","code":405}
+
+            # Users #
+            /api/clients/{client_id}/users:
+                get:
+                    security:
+                        -   Bearer: []
+                    summary: "retrieve all users."
+                    tags:
+                        - Users (Authentification JWT)
+                    description: "Allows you to retrieve all users with paginate if nessesary."
+                    parameters:
+                        - name: "client_id"
+                          in: "path"
+                          description: "ID of client"
+                          required: true
+                          type: "integer"
+                    responses:
+                        200:
+                            description: "Success: Return list of all users"
+                            content:
+                                application/json:
+                            schema:
+                                type: "object"
+                                $ref: "#/definitions/UsersList"
+                        400:
+                            description: 'Bad Request'
+                            content:
+                                application/json:
+                            examples:
+                                paginate:
+                                  {"message":"The requested page does not exist, last page is \/api\/clients\/74\/users?page=4","code":400}
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                                permission:
+                                  {"message":"You can\u0027t access these resources.","code":401}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022COPY \/api\/clients\/74\/users\u0022: Method Not Allowed (Allow: GET, POST)","code":405}
+                post:
+                    security:
+                        -   Bearer: []
+                    summary: "Allows you to post a new user."
+                    tags:
+                        - Create User (Authentification JWT)
+                    description: "Allows you to post a new user."
+                    parameters:
+                        - name: "client_id"
+                          in: "path"
+                          description: "ID of client"
+                          required: true
+                          type: "integer"
+                        - in: "body"
+                          name: "body"
+                          schema:
+                              properties:
+                                  lastname:
+                                      type: "string"
+                                      description: "lastname of the new user"
+                                      example: "DuChamp"
+                                  fistname:
+                                      type: "string"
+                                      description: "firstname of the new user"
+                                      example: "Olivier"
+                                  email:
+                                      type: "string"
+                                      description: "Email of the new user"
+                                      example: "olivier.duchamp@olivier.com"
+                                  address:
+                                      type: "string"
+                                      description: "Address of the new user"
+                                      example: "282 rue LaGrandeRue 82 902 Oliver"
+                                  country:
+                                      type: "string"
+                                      description: "country"
+                                      example: "France"
+                                  telephone:
+                                      type: "string"
+                                      description: "telephone number"
+                                      example : "+33 6 38 38 02 02"
+                    responses:
+                        201:
+                            description: "Success"
+                            content:
+                                application/json;version=1:
+                            schema:
+                                example:
+                                  {"url":"\/api\/clients\/XX\/users\/XXX"}
+                        400:
+                            description: 'Bad Request'
+                            content:
+                                application/json:
+                            examples:
+                                propertie(s) missing:
+                                  {"message":{"errors":["lastname =\u003E This value should not be blank.","fistname =\u003E This value should not be blank.","email =\u003E This value should not be blank."]},"code":400}
+                                email format:
+                                  {"message":{"errors":["email =\u003E The email \u0027\u0022test\u0022\u0027 is not a valid email."]},"code":400}
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022PUT \/api\/clients\/dfsf\/users\u0022: Method Not Allowed (Allow: GET, POST)","code":405}
+                        409:
+                            description: 'Conflict'
+                            content:
+                                application/json:
+                            examples:
+                                email already exists:
+                                  {"message":"This email already exists for another user, please change it.","code":409}
+            /api/clients/{client_id}/users/{id}:
+                get:
+                    security:
+                        -   Bearer: []
+                    summary: "Retrieve a single user."
+                    tags:
+                        - Users (Authentification JWT)
+                    description: "Retrieve a single user."
+                    parameters:
+                        - name: "client_id"
+                          in: "path"
+                          description: "ID of client"
+                          required: true
+                          type: "integer"
+                        - name: "id"
+                          in: "path"
+                          description: "ID of user"
+                          required: true
+                          type: "integer"
+                    responses:
+                        200:
+                            description: "Success"
+                            content:
+                                application/json:
+                            schema:
+                                type: "object"
+                                $ref: "#/definitions/UserDetail"
+                        400:
+                            description: 'Bad Request'
+                            content:
+                                application/json:
+                            examples:
+                                query:
+                                  {"message":"The parameter is not valid, a value of type int is requested.","code":400}
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                                permission:
+                                  {"message":"You can\u0027t access these resources.","code":401}
+                        404:
+                            description: "User not found"
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"User was not found, check your request","code":404}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022PUT \/api\/clients\/74\/users\/774\u0022: Method Not Allowed (Allow: DELETE, GET)","code":405}
+                delete:
+                    security:
+                        -   Bearer: []
+                    summary: "Delete a user."
+                    tags:
+                        - Delete User (Authentification JWT)
+                    description: "Delete a user."
+                    parameters:
+                        - name: "client_id"
+                          in: "path"
+                          description: "ID of client"
+                          required: true
+                          type: "integer"
+                        - name: "id"
+                          in: "path"
+                          description: "ID of user"
+                          required: true
+                          type: "integer"
+                    responses:
+                        204:
+                            description: "User was deleted successfully."
+                        400:
+                            description: "Bad Request"
+                            content:
+                                application/json:
+                            examples:
+                                query:
+                                  {"message":"The parameter is not valid, a value of type int is requested.","code":400}
+                                value:
+                                  {"message":"User was not found, check your request","code":404}
+                        401:
+                            description: 'Unauthorized, JWT Token not found'
+                            content:
+                                application/json:
+                            examples:
+                                token missing:
+                                  {"code":401,"message":"JWT Token not found"}
+                                token invalid:
+                                  {"code":401,"message":"Invalid JWT Token"}
+                                token expired:
+                                  {"code":401,"message":"Expired JWT Token"}
+                                unauthorized:
+                                  {"message":"You don\u0027t have the permissions for this resource.","code":401}
+                        404:
+                            description: "User not found"
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"User was not found, check your request","code":404}
+                        405:
+                            description: 'Method Not Allowed'
+                            content:
+                                application/json:
+                            examples:
+                                value:
+                                  {"message":"No route found for \u0022PUT \/api\/clients\/76\/users\/773\u0022: Method Not Allowed (Allow: DELETE, GET)","code":405}
+        # Definitions #
+        definitions:
+            UsersList:
+                type: "object"
+                properties:
+                    total:
+                        type: "integer"
+                        description: "total number of users"
+                        example: "16"
+                    count:
+                        type: "integer"
+                        description: "number of users listed in the current page"
+                        example: "5"
+                    previous page:
+                        type: "string"
+                        description: "previous page"
+                        example: "/api/clients/45/users?page=3"
+                    next page:
+                        type: "string"
+                        description: "next page"
+                        example: "/api/clients/45/users?page=4"
+                    users:
+                        type: object
+                        description: "list of users"
+                        example: [
+                            {
+                                "id": 189,
+                                "email": "6_HarbinParent@armyspy.com"
+                            },
+                            {
+                                "id": 226,
+                                "email": "43_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 227,
+                                "email": "44_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 228,
+                                "email": "45_PenelopeMargand@dayrep.com"
+                            },
+                            {
+                                "id": 235,
+                                "email": "52_JacquenettGousse@dayrep.com"
+                            }
+                        ]
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example:
+                          {
+                              "_self": "http://localhost:8000/api/client/45/users",
+                              "user detail number 189": "http://localhost:8000/api/clients/45/users/189",
+                              "user detail number 226": "http://localhost:8000/api/clients/45/users/226",
+                              "user detail number 227": "http://localhost:8000/api/clients/45/users/227",
+                              "user detail number 228": "http://localhost:8000/api/clients/45/users/228",
+                              "user detail number 235": "http://localhost:8000/api/clients/45/users/235"
+                          }
+            UserDetail:
+                type: "object"
+                properties:
+                    lastName:
+                        type: "string"
+                        description: "lastName"
+                        example: "Jezabel"
+                    firstName:
+                        type: "string"
+                        description: "firstName"
+                        example: "France"
+                    email:
+                        type: "string"
+                        description: "email of user"
+                        example: "8_HarbinFrance@armspy.com"
+                    address:
+                        type: "string"
+                        description: "address of user"
+                        example: "82 rue machin"
+                    country:
+                        type: "string"
+                        description: "country of the user"
+                        example: "France"
+                    telephone:
+                        type: "string"
+                        description: "telephone of the user"
+                        example: "+92 28283 939"
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example: {
+                          "_self": "http://localhost:8000/api/clients/45users/189",
+                          "all": "http://localhost:8000/api/clients/45users"
+                        }
+            PhoneList:
+                type: "object"
+                properties:
+                    total:
+                        type: "integer"
+                        description: "total number of phones"
+                        example: "20"
+                    count:
+                        type: "integer"
+                        description: "number of phones in the response"
+                        example: "4"
+                    previous page:
+                        type: "string"
+                        description: "previous page uri"
+                        example: "http://localhost:8000/api/phones?page=82"
+                    next page:
+                        type: "string"
+                        description: "next page uri"
+                        example: "http://localhost:8000/api/phones?page=83"
+                    smartphones:
+                        type: "json"
+                        description: "smartphone details in a list"
+                        example : [
+                            {
+                                "id": 81,
+                                "title": "Apple iPhone SE 2020",
+                                "content": "L'iPhone SE (2020) est un smartphone de milieu de gamme annoncé le 15 avril 2020. Il représente l'entrée de gamme de la marque à la pomme sur l'année 2020 à côté des iPhone 11. Considéré comme l'héritier de l'iPhone 8, il reprend le célèbre formfactor de la série avant l'arrivée de FaceID avec un écran compact de 4,7 pouces avec des bordures importantes et un unique bouton central également utilisé pour Touch ID. Il est équipé d'un SoC Apple A13 Bionic qui le rend aussi performant qu'un iPhone 11 et d'un simple capteur photo de 12 mégapixels à l'arrière.",
+                                "rate": "9/10",
+                                "price": 1230,
+                                "createdAt": "2020-05-24T15:22:46+00:00"
+                            },
+                            {
+                                "id": 92,
+                                "title": "Honor 20",
+                                "content": "Le Honor 20 est le flagship 2019 de Honor. Il est équipé d'un quadruple capteur photo et du SoC Kirin 980, son écran IPS LCD est de 6,26 pouces en Full HD+. Il est équipé de l'interface Magic UI sous Android Pie.",
+                                "rate": "8/10",
+                                "price": 299,
+                                "createdAt": "2020-05-24T15:22:46+00:00"
+                            },
+                            {
+                                "id": 93,
+                                "title": "Apple iPhone SE 2020",
+                                "content": "L'iPhone SE (2020) est un smartphone de milieu de gamme annoncé le 15 avril 2020. Il représente l'entrée de gamme de la marque à la pomme sur l'année 2020 à côté des iPhone 11. Considéré comme l'héritier de l'iPhone 8, il reprend le célèbre formfactor de la série avant l'arrivée de FaceID avec un écran compact de 4,7 pouces avec des bordures importantes et un unique bouton central également utilisé pour Touch ID. Il est équipé d'un SoC Apple A13 Bionic qui le rend aussi performant qu'un iPhone 11 et d'un simple capteur photo de 12 mégapixels à l'arrière.",
+                                "rate": "9/10",
+                                "price": 1230,
+                                "createdAt": "2020-05-24T15:22:46+00:00"
+                            },
+                            {
+                                "id": 94,
+                                "title": "Samsung Galaxy A80",
+                                "content": "Le Samsung Galaxy A80 est un smartphone de milieu de gamme annoncé le 10 avril 2019. Il est équipé d'un écran Super AMOLED de 6,7 pouces avec une définition Full HD+ avec un slider qui permet d'utiliser son triple-capteur dorsal en mode selfie.",
+                                "rate": "8/10",
+                                "price": 479,
+                                "createdAt": "2020-05-24T15:22:46+00:00"
+                            }
+                        ]
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example: {
+                            "_self": "http://localhost:8000/api/phones",
+                            "phone number 81": "http://localhost:8000/api/phones/81",
+                            "phone number 92": "http://localhost:8000/api/phones/92",
+                            "phone number 93": "http://localhost:8000/api/phones/93",
+                            "phone number 94": "http://localhost:8000/api/phones/94"
+                        }
+
+            PhoneDetails:
+                type: "object"
+                properties:
+                    title:
+                        type: "string"
+                        description: "Phone commercial name"
+                        example: "Apple iPhone SE 2020"
+                    content:
+                        type: "string"
+                        description: "Phone description"
+                        example: "L'iPhone SE (2020) est un smartphone de milieu de gamme annoncé le 15 avril 2020. Il représente l'entrée de gamme de la marque à la pomme sur l'année 2020 à côté des iPhone 11. Considéré comme l'héritier de l'iPhone 8, il reprend le célèbre formfactor de la série avant l'arrivée de FaceID avec un écran compact de 4,7 pouces avec des bordures importantes et un unique bouton central également utilisé pour Touch ID. Il est équipé d'un SoC Apple A13 Bionic qui le rend aussi performant qu'un iPhone 11 et d'un simple capteur photo de 12 mégapixels à l'arrière"
+                    rate:
+                        type: "string"
+                        description: "Phone rating"
+                        example: "9/10"
+                    price:
+                        type: "integer"
+                        description: "Phone Price "
+                        example: 1250
+                    provider:
+                        $ref: "#/definitions/Provider"
+                    specification:
+                        $ref: "#/definitions/Specification"
+                    _links:
+                        type: "json"
+                        description: "hypermedia"
+                        example: {"self":"\/api\/phones\/81","all":"\/api\/phones"}
+            Provider:
+                type: "object"
+                properties:
+                    companyname:
+                        type: "string"
+                        description: "The name of the company"
+                        example: "Apple"
+                    address:
+                        type: "string"
+                        description: "company address"
+                        example: "103 Street Apple New York"
+                    country:
+                        type: "string"
+                        description: "The country of the provider"
+                        example: "USA"
+                    telephone:
+                        type: "string"
+                        description: "the telephone number of the provider"
+                        example: "+011 829 038 289"
+                    email:
+                        type: "string"
+                        description: "Contact Email of the provider"
+                        example: "how.do.you.like.them.apples@myapples.com"
+            Specification:
+                type: "object"
+                properties:
+                    system:
+                        $ref: "#/definitions/System"
+                    battery:
+                        $ref: "#/definitions/Battery"
+                    camera:
+                        $ref: "#/definitions/Camera"
+                    dimension:
+                        $ref: "#/definitions/Dimension"
+                    divers:
+                        $ref: "#/definitions/Divers"
+                    network:
+                        $ref: "#/definitions/Network"
+                    performance:
+                        $ref: "#/definitions/Performance"
+                    screen:
+                        $ref: "#/definitions/Screen"
+                    storage:
+                        $ref: "#/definitions/Storage"
+                    createdAt:
+                        type: "string"
+                        description: "date of creation"
+                        example: "2020-05-24T15:22:46+00:00"
+            System:
+                type: "object"
+                properties:
+                    operatingSystem:
+                        type: "string"
+                        description: "OS"
+                        example: "Android 10 Q"
+                    interface:
+                        type: "string"
+                        description: "Interface"
+                        example: "Samsung"
+            Battery:
+                type: "object"
+                properties:
+                    capacity:
+                        type: "string"
+                        description: "Capacity"
+                        example : "5000 mAh"
+                    power:
+                        type: "string"
+                        description: "Power"
+                        example: "25 watts"
+                    technology:
+                        type: "string"
+                        description: "technology"
+                        example: "Li-Po"
+                    withoutCable:
+                        type: "boolean"
+                        description: "charge without cable"
+                        example: "false"
+                    removable:
+                        type: "boolean"
+                        description: "Battery removable"
+                        example: "false"
+            Camera:
+                type: "object"
+                properties:
+                    camera:
+                        type: "string"
+                        description: "Camera pixel rage"
+                        example: "64 Mpx, 5 Mpx, 12 Mpx, 5 Mpx"
+                    flashFront:
+                        type: "boolean"
+                        description: "flash front of screen exist"
+                        example: "false"
+                    flashBack:
+                        type: "boolean"
+                        description: "flash at the back exist"
+                        example: "true"
+                    sensorNumber:
+                        type: "string"
+                        description: "Number of sensors"
+                        example: "8"
+                    sensorFrontPixels:
+                        type: "string"
+                        description: "pixels sensor front"
+                        example: "38 Mpx"
+            Dimension:
+                type: "object"
+                properties:
+                    weight:
+                        type: "string"
+                        description: "weight"
+                        example: "197 grammes"
+                    thickness:
+                        type: "string"
+                        description: "thickness"
+                        example: "7,5 mm"
+                    width:
+                        type: "string"
+                        description: "width"
+                        example: "61 mm"
+                    length:
+                        type: "string"
+                        description: "length"
+                        example: "199.1 mm"
+            Divers:
+                type: "object"
+                properties:
+                    family:
+                        type: "string"
+                        description: "family"
+                        example: "Galaxy A"
+                    color:
+                        type: "string"
+                        description: "possible colors"
+                        example: "Noir, Blanc, Vert, Rose"
+                    appearance:
+                        type: "string"
+                        description: "apperance possible"
+                        example: "verre"
+                    releaseDate:
+                        type: "string"
+                        description: "release Date"
+                        example: "8228-08-03T00:00:00+00:00"
+            Network:
+                type: "object"
+                properties:
+                    wifi:
+                        type: "string"
+                        description: "wifi"
+                        example: "Wi-Fi 5 (ac)"
+                    bluetooth:
+                        type: "string"
+                        description: "bluetooth version"
+                        example: "5.0"
+                    nfc:
+                        type: "boolean"
+                        description: "nfc exist"
+                        example: "true"
+                    usbVersion:
+                        type: "string"
+                        description: "usb version"
+                        example: "2.0"
+                    gps:
+                        type: "boolean"
+                        description: "gps exist"
+                        example: "true"
+                    gyroscope:
+                        type: "boolean"
+                        description: "gyroscope exist"
+                        example: "true"
+                    fingerprintSensor:
+                        type: "boolean"
+                        description: "fingerprint sensor exist"
+                        example: "true"
+            Performance:
+                type: "object"
+                properties:
+                    processor:
+                        type: "boolean"
+                        description: "processor"
+                        example: "true"
+                    ram:
+                        type: "string"
+                        description: "RAM"
+                        example: "6 Go, 8 Go"
+                    fabriquant:
+                        type: "string"
+                        description: "fabriquant"
+                        example: "Qualcomm"
+                    gpu:
+                        type: "string"
+                        description: "gpu"
+                        example: "Qualcomm Adreno 519"
+                    frequence:
+                        type: "string"
+                        description: "frequance"
+                        example: "2.2 GHz"
+                    CPU:
+                        type: "string"
+                        description: "CPU"
+                        example: "Octa-Core"
+            Screen:
+                type: "object"
+                properties:
+                    size:
+                        type: "string"
+                        description: "size"
+                        example: "6.7 pouces"
+                    definition:
+                        type: "string"
+                        description: "definition"
+                        example: "2400 x 1080 pixels"
+                    dpi:
+                        type: "string"
+                        description: "DPI"
+                        example: "393 ppp"
+            Storage:
+                type: "object"
+                properties:
+                    memory":
+                        type: "string"
+                        description: "memory capacity"
+                        example: "128 Go, 64 Go"
+                    extensible:
+                        type: "string"
+                        description: "extensible"
+                        example: "microSD"
+                    maximum:
+                        type: "string"
+                        description: "maximum memory"
+                        example: "1024 Go"
