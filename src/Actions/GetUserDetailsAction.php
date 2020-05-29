@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class GetUserDetailsAction
- * @Route(path="/api/clients/{client_id<\d+>}/users/{id<\d+>}", name="get_user_details", methods={"GET"}, condition="request.headers.get('Accept') matches '#version=1#i'")
+ * @Route(path="/api/clients/{client_id<\d+>}/users/{id<\d+>}", name="get_user_details", methods={"GET"}, condition="request.headers.get('Accept') matches '#(version=1)?#i'")
  */
 class GetUserDetailsAction
 {

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class GetListOfUsersAction
  * @package App\Actions
- * @Route(path="/api/clients/{client_id<\d+>}/users", name="get_users_list", methods={"GET"}, condition="request.headers.get('Accept') matches '#version=1#i'")
+ * @Route(path="/api/clients/{client_id<\d+>}/users", name="get_users_list", methods={"GET"}, condition="request.headers.get('Accept') matches '#(version=1)?#'")
  */
 final class GetListOfUsersAction
 {

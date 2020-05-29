@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     name="get_phone",
  *     path="/api/phones/{id<\d+>}",
  *     methods={"GET"},
- *     condition="request.headers.get('Accept') matches '#version=1#i'"
+ *     condition="request.headers.get('Accept') matches '#(version=1)?#'"
  * )
  */
 final class GetSmartphoneDetailsAction
