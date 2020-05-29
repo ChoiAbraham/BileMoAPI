@@ -37,7 +37,6 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
         }
 
         if ($e instanceof HttpExceptionInterface) {
-
             $data = $apiProblem->toArray();
 
             $response = new JsonResponse(

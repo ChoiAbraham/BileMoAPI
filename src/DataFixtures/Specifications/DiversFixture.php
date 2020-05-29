@@ -42,7 +42,7 @@ class DiversFixture extends BaseFixture
             $divers->setFamily(self::$divers[$i]['family']);
             $divers->setColor(self::$divers[$i]['color']);
             $divers->setAppearance(self::$divers[$i]['appareance']);
-            $divers->setReleaseDate(new \DateTime(19/12/2019));
+            $divers->setReleaseDate(new \DateTime(19 / 12 / 2019));
         });
 
         $manager->flush();

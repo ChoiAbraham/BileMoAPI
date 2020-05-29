@@ -128,9 +128,9 @@ class UserFixture extends BaseFixture
     protected function loadData(ObjectManager $manager)
     {
         $this->createMany(User::class, 60, function (User $user, $i) {
-            $randomNumber = random_int(0,3);
-            $randomFirstName = random_int(0,5);
-            $randomEmail = random_int(0,6);
+            $randomNumber = random_int(0, 3);
+            $randomFirstName = random_int(0, 5);
+            $randomEmail = random_int(0, 6);
             $user->setFirstName(self::$firstNames[$randomFirstName]);
             $user->setLastName(self::$lastNames[$i]);
             $user->setEmail($i . '_' . self::$email[$randomEmail]);

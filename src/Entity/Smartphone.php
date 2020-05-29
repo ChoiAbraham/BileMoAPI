@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Smartphone
 {
-    CONST API_MAX_ITEMS_LIST = 4;
+    public const API_MAX_ITEMS_LIST = 4;
 
     /**
      * @ORM\Id()
@@ -117,7 +117,7 @@ class Smartphone
             return $this->content;
         }
 
-        return substr($this->content, 0, 40).'...';
+        return substr($this->content, 0, 40) . '...';
     }
 
     public function setContent(?string $content): self

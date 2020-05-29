@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Specifications;
 
 use Doctrine\ORM\Mapping as ORM;

@@ -42,7 +42,7 @@ class SmartphoneRepository extends ServiceEntityRepository
         if ($term) {
             $qb
                 ->where('a.title LIKE ?1')
-                ->setParameter(1, '%'.$term.'%')
+                ->setParameter(1, '%' . $term . '%')
             ;
         }
 

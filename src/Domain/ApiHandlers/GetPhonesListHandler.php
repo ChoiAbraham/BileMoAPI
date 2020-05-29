@@ -3,7 +3,6 @@
 namespace App\Domain\ApiHandlers;
 
 use App\Entity\Smartphone;
-
 use App\Repository\SmartphoneRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -46,8 +45,8 @@ class GetPhonesListHandler
         $page = $request->query->get('page', 1);
         $keyword = $request->query->get('keyword');
 
-        if($keyword) {
-            $order= 'asc';
+        if ($keyword) {
+            $order = 'asc';
             $qb = $this->smartphoneRepository->search($keyword, $order);
         } else {
             $qb = $this->smartphoneRepository->findOrderByDate();
@@ -58,12 +57,12 @@ class GetPhonesListHandler
         $pagerfanta->setMaxPerPage(Smartphone::API_MAX_ITEMS_LIST);
         $pagerfanta->setCurrentPage($page);
 
-        if($pagerfanta->hasPreviousPage()) {
+        if ($pagerfanta->hasPreviousPage()) {
             $previousPage = $request->getSchemeAndHttpHost() . '/api/phones?page=' . $pagerfanta->getPreviousPage();
         } else {
             $previousPage = 'no previous page';
         }
-        if($pagerfanta->hasNextPage()) {
+        if ($pagerfanta->hasNextPage()) {
             $nextPage = $request->getSchemeAndHttpHost() . '/api/phones?page=' . $pagerfanta->getNextPage();
         } else {
             $nextPage = 'you reached the last page';

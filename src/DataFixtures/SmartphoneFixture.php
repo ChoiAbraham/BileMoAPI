@@ -8,7 +8,7 @@ use App\Entity\Specification;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class SmartphoneFixture extends BaseFixture  implements DependentFixtureInterface
+class SmartphoneFixture extends BaseFixture implements DependentFixtureInterface
 {
     private static $smartphones = [
         [
@@ -45,7 +45,7 @@ class SmartphoneFixture extends BaseFixture  implements DependentFixtureInterfac
     protected function loadData(ObjectManager $manager)
     {
         $this->createMany(Smartphone::class, 20, function (Smartphone $smartphone, $i) {
-            $randomNumber = random_int(0,4);
+            $randomNumber = random_int(0, 4);
             $smartphone->setTitle(self::$smartphones[$randomNumber]['title']);
             $smartphone->setContent(self::$smartphones[$randomNumber]['content']);
             $smartphone->setRate(self::$smartphones[$randomNumber]['rate']);
