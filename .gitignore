@@ -8,6 +8,7 @@
 behat.yml
 /var/
 /vendor/
+/src/Migrations/
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###
