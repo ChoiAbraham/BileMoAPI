@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * Class GetListOfUsersAction
  * @package App\Actions
@@ -34,7 +33,7 @@ final class GetListOfUsersAction
     {
         $user = $this->userListHandler->handle($request, $client);
         $user["_links"] = [
-            "_self" => $request->getSchemeAndHttpHost() ."/api/" . $client->getId() . "/users",
+            "_self" => $request->getSchemeAndHttpHost() . "/api/" . $client->getId() . "/users",
             "one user" => $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "/USER_ID",
         ];
 
@@ -42,7 +41,7 @@ final class GetListOfUsersAction
             "_self" => $request->getSchemeAndHttpHost() . "/api/client/" . $client->getId() . "/users",
         ];
 
-        for($i = 0; $i < User::API_ITEMS_LIST; $i++) {
+        for ($i = 0; $i < User::API_ITEMS_LIST; $i++) {
             $userNumber = $user["users"][$i]['id'];
             $user["_links"]["user detail number " . $userNumber] = $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "/users/" . $userNumber;
         }

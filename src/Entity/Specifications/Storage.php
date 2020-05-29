@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\Specifications;
 
 use App\Entity\Specification;

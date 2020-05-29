@@ -31,7 +31,7 @@ class GetUserDetailsAction
     {
         $user = $this->handler->handle($request, $client);
         $user["_links"] = [
-            "_self" => $request->getSchemeAndHttpHost() ."/api/clients/" . $client->getId() . "users/" . $request->attributes->get('id'),
+            "_self" => $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "users/" . $request->attributes->get('id'),
             "all" => $request->getSchemeAndHttpHost() . "/api/clients/" . $client->getId() . "users",
         ];
         return $jsonResponder($user, Response::HTTP_OK, ['Content-Type' => 'application/json;version=1'], true);

@@ -76,7 +76,7 @@ class PostUserHandler
 
         // If the user already exist, throw exception
         $user = $this->userRepository->findOneBy(['email' => $input->getEmail()]);
-        if($user) {
+        if ($user) {
             $apiProblem = new ApiProblem(Response::HTTP_CONFLICT, ApiProblem::TYPE_INVALID_USER_EMAIL);
             throw new ApiProblemException($apiProblem);
         }

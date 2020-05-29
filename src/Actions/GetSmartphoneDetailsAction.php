@@ -36,7 +36,7 @@ final class GetSmartphoneDetailsAction
     {
         $phone = $this->handler->handle($request);
         $phone["_links"] = [
-            "_self" => $request->getSchemeAndHttpHost() ."/api/phones/" . $request->attributes->get('id'),
+            "_self" => $request->getSchemeAndHttpHost() . "/api/phones/" . $request->attributes->get('id'),
             "all" => $request->getSchemeAndHttpHost() . "/api/phones",
         ];
         return $jsonResponder($phone, Response::HTTP_OK, ['Content-Type' => 'application/json;version=1'], true);

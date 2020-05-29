@@ -40,7 +40,7 @@ final class GetListOfSmartphonesAction
             "_self" => $request->getSchemeAndHttpHost() . "/api/phones",
         ];
 
-        for($i = 0; $i < Smartphone::API_MAX_ITEMS_LIST; $i++) {
+        for ($i = 0; $i < Smartphone::API_MAX_ITEMS_LIST; $i++) {
             $phoneNumber = $phone["smartphones"][$i]['id'];
             $phone["_links"]["phone number " . $phoneNumber] = $request->getSchemeAndHttpHost() . "/api/phones/" . $phoneNumber;
         }

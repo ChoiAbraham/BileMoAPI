@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\ApiHandlers;
 
 use App\Entity\User;
@@ -61,12 +60,12 @@ class UserListHandler
         $pagerfanta->setMaxPerPage(User::API_ITEMS_LIST);
         $pagerfanta->setCurrentPage($page);
 
-        if($pagerfanta->hasPreviousPage()) {
+        if ($pagerfanta->hasPreviousPage()) {
             $previousPage = $request->getSchemeAndHttpHost() . '/api/clients/' . $client->getId() . '/users?page=' . $pagerfanta->getPreviousPage();
         } else {
             $previousPage = 'no previous page';
         }
-        if($pagerfanta->hasNextPage()) {
+        if ($pagerfanta->hasNextPage()) {
             $nextPage = $request->getSchemeAndHttpHost() . '/api/clients/' . $client->getId() . '/users?page=' . $pagerfanta->getNextPage();
         } else {
             $nextPage = 'you reached the last page';

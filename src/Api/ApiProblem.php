@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiProblem
 {
-    const TYPE_VALIDATION_ERROR = 'validation_error';
-    const TYPE_INVALID_REQUEST_BODY_FORMAT = 'invalid_body_format';
-    const TYPE_INVALID_USER_EMAIL = 'invalid_email_user';
+    private const TYPE_VALIDATION_ERROR = 'validation_error';
+    private const TYPE_INVALID_REQUEST_BODY_FORMAT = 'invalid_body_format';
+    private const TYPE_INVALID_USER_EMAIL = 'invalid_email_user';
 
     private static $titles = array(
         self::TYPE_VALIDATION_ERROR => 'There was a validation error',
@@ -40,7 +40,7 @@ class ApiProblem
                 : 'Unknown status code :(';
         } else {
             if (!isset(self::$titles[$type])) {
-                throw new \InvalidArgumentException('No title for type '.$type);
+                throw new \InvalidArgumentException('No title for type ' . $type);
             }
 
             $title = self::$titles[$type];

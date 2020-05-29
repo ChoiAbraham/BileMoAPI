@@ -42,7 +42,6 @@ class StorageFixture extends BaseFixture
             $storage->setMemory(self::$storage[$i]['memory']);
             $storage->setExtensible(self::$storage[$i]['extensible']);
             $storage->setMaximum(self::$storage[$i]['maximum']);
-
         });
 
         $manager->flush();
