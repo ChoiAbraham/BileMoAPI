@@ -1,5 +1,7 @@
 # SnowTricks
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/29fbbef3319c403cbc92f1d7cc214027)](https://app.codacy.com/manual/choi.abri/BileMoAPI?utm_source=github.com&utm_medium=referral&utm_content=ChoiAbraham/BileMoAPI&utm_campaign=Badge_Grade_Dashboard)
+
 Créez un web service exposant une API
 ==========
 *Project 7 OpenClassRooms*
