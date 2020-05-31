@@ -59,20 +59,12 @@ class PostUserHandler
 
     public function handle(Request $request, UserInterface $client)
     {
-        if ($client == null) {
-            throw new AccessDeniedHttpException('You can\'t add an user');
-        } elseif ($client->getId() != $request->attributes->get('client_id')) {
+        if ($client->getId() != $request->attributes->get('client_id')) {
             throw new AccessDeniedHttpException('wrong id');
         }
 
         /** @var UserInputs $input */
         $input = $this->serializer->deserialize($request->getContent(), UserInputs::class, 'json');
-
-        // Properties "firstname", "lastname", "email" are required in json to be valid
-        if ($input->getEmail() == null || $input->getFirstName() == null || $input->getFirstName() == null) {
-            $apiProblem = new ApiProblem(Response::HTTP_BAD_REQUEST, ApiProblem::TYPE_INVALID_REQUEST_BODY_FORMAT);
-            throw new ApiProblemException($apiProblem);
-        }
 
         // If the user already exist, throw exception
         $user = $this->userRepository->findOneBy(['email' => $input->getEmail()]);
@@ -87,7 +79,7 @@ class PostUserHandler
             $errors = $this->getErrors($errors);
 
             $apiProblem = new ApiProblem(
-                400,
+                Response::HTTP_BAD_REQUEST,
                 ApiProblem::TYPE_VALIDATION_ERROR
             );
             $apiProblem->set('errors', $errors);

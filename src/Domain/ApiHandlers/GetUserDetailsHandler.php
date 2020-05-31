@@ -2,6 +2,8 @@
 
 namespace App\Domain\ApiHandlers;
 
+use App\Api\ApiProblem;
+use App\Api\ApiProblemException;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,9 +37,7 @@ class GetUserDetailsHandler
 
     public function handle(Request $request, UserInterface $client)
     {
-        if ($client == null) {
-            throw new AccessDeniedHttpException('You can\'t add an user');
-        } elseif ($client->getId() != $request->attributes->get('client_id')) {
+        if ($client->getId() != $request->attributes->get('client_id')) {
             throw new AccessDeniedHttpException('wrong id');
         }
 

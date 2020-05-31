@@ -2,6 +2,8 @@
 
 namespace App\Domain\ApiHandlers;
 
+use App\Api\ApiProblem;
+use App\Api\ApiProblemException;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -39,9 +41,11 @@ class DeleteUserHandler
     {
         $user = $this->userRepository->find($request->get('id'));
 
-        if ($user == null) {
-            throw new Exception('This User does not exist', Response::HTTP_NOT_FOUND);
-        } elseif ($this->storage->getToken()->getUser() == null || (int)$request->get('client_id') != $client->getId()) {
+        if (is_null($user)) {
+            $apiProblem = new ApiProblem(Response::HTTP_NOT_FOUND, ApiProblem::TYPE_INVALID_INPUT);
+            $apiProblem->set('detail', 'This User does not exist');
+            throw new ApiProblemException($apiProblem);
+        } elseif (is_null($this->storage->getToken()->getUser()) || (int)$request->get('client_id') != $client->getId()) {
             throw new AccessDeniedHttpException('Delete impossible', null, Response::HTTP_UNAUTHORIZED);
         } else {
             $this->manager->remove($user);

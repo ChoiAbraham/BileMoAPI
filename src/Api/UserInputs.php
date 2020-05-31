@@ -10,13 +10,13 @@ class UserInputs
      * @var string|null
      * @Assert\NotBlank()
      */
-    private $lastName;
+    private $lastname;
 
     /**
      * @var string|null
      * @Assert\NotBlank()
      */
-    private $firstName;
+    private $firstname;
 
     /**
      * @var string|null
@@ -45,33 +45,33 @@ class UserInputs
     /**
      * @return string|null
      */
-    public function getLastName(): ?string
+    public function getLastname(): ?string
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     /**
-     * @param string|null $lastName
+     * @param string|null $lastname
      */
-    public function setLastName(?string $lastName): void
+    public function setLastname(?string $lastname): void
     {
-        $this->lastName = $lastName;
+        $this->lastname = $lastname;
     }
 
     /**
      * @return string|null
      */
-    public function getFirstName(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     /**
-     * @param string|null $fistName
+     * @param string|null $firstname
      */
-    public function setFirstName(?string $fistName): void
+    public function setFirstname(?string $firstname): void
     {
-        $this->firstName = $fistName;
+        $this->firstname = $firstname;
     }
 
     /**

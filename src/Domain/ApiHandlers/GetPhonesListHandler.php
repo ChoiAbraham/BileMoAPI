@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -50,6 +51,10 @@ class GetPhonesListHandler
             $qb = $this->smartphoneRepository->search($keyword, $order);
         } else {
             $qb = $this->smartphoneRepository->findOrderByDate();
+        }
+
+        if (is_null($qb)) {
+            throw new NotFoundHttpException("No ressource found");
         }
 
         $adapter = new DoctrineORMAdapter($qb);

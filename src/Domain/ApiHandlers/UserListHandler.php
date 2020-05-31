@@ -2,12 +2,15 @@
 
 namespace App\Domain\ApiHandlers;
 
+use App\Api\ApiProblem;
+use App\Api\ApiProblemException;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,9 +47,7 @@ class UserListHandler
 
     public function handle(Request $request, UserInterface $client)
     {
-        if ($client == null) {
-            throw new AccessDeniedHttpException('You can\'t add an user');
-        } elseif ($client->getId() != $request->attributes->get('client_id')) {
+        if ($client->getId() != $request->attributes->get('client_id')) {
             throw new AccessDeniedHttpException('wrong id');
         }
 
@@ -58,6 +59,13 @@ class UserListHandler
         $adapter = new DoctrineORMAdapter($qb);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(User::API_ITEMS_LIST);
+
+        if ($page > $pagerfanta->getNbPages()) {
+            $apiProblem = new ApiProblem(Response::HTTP_BAD_REQUEST, ApiProblem::TYPE_INVALID_INPUT);
+            $apiProblem->set('detail', 'page does not exist');
+
+            throw new ApiProblemException($apiProblem);
+        }
         $pagerfanta->setCurrentPage($page);
 
         if ($pagerfanta->hasPreviousPage()) {
@@ -70,6 +78,7 @@ class UserListHandler
         } else {
             $nextPage = 'you reached the last page';
         }
+
 
         $users = [];
         foreach ($pagerfanta->getCurrentPageResults() as $result) {
