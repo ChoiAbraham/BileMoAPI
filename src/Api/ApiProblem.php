@@ -9,14 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiProblem
 {
-    private const TYPE_VALIDATION_ERROR = 'validation_error';
-    private const TYPE_INVALID_REQUEST_BODY_FORMAT = 'invalid_body_format';
-    private const TYPE_INVALID_USER_EMAIL = 'invalid_email_user';
+    public const TYPE_VALIDATION_ERROR = 'validation_error';
+    public const TYPE_INVALID_REQUEST_BODY_FORMAT = 'invalid_body_format';
+    public const TYPE_INVALID_USER_EMAIL = 'invalid_email_user';
+    public const TYPE_INVALID_INPUT = 'invalid_request';
 
     private static $titles = array(
-        self::TYPE_VALIDATION_ERROR => 'There was a validation error',
+        self::TYPE_VALIDATION_ERROR => 'validation error',
         self::TYPE_INVALID_REQUEST_BODY_FORMAT => 'Invalid JSON format sent',
-        self::TYPE_INVALID_USER_EMAIL => 'The Email already exist.'
+        self::TYPE_INVALID_USER_EMAIL => 'The Email already exist.',
+        self::TYPE_INVALID_INPUT => 'the input is wrong'
     );
 
     private $statusCode;
@@ -56,7 +58,7 @@ class ApiProblem
             $this->extraData,
             array(
                 'status' => $this->statusCode,
-                'type' => $this->type,
+//                'type' => $this->type,
                 'title' => $this->title,
             )
         );

@@ -7,6 +7,7 @@ use App\Api\ApiProblemException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -16,7 +17,7 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
     {
         if ($event->getThrowable()->getCode() and $event->getThrowable()->getCode() > 200) {
             $code = $event->getThrowable()->getCode();
-        } elseif (method_exists($event->getThrowable(), 'getStatusCode') == true) {
+        } elseif (method_exists($event->getThrowable(), 'getStatusCode')) {
             $code = $event->getThrowable()->getStatusCode();
         } else {
             $code = 404;
